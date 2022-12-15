@@ -1,6 +1,6 @@
 import numpy as np
 
-from lab1.tn3.base import Layer
+from lab1.numpy_src.base import Layer
 
 
 class Relu(Layer):
@@ -55,7 +55,8 @@ class Softmax(Layer):
         self.__last_softmax = None
 
     def forward(self, x: np.ndarray):
-        e = np.exp(x.transpose() - np.max(x, axis=1)).transpose()
+        # e = np.exp(x.transpose() - np.max(x, axis=1)).transpose()
+        e = np.exp(x)
         self.__last_softmax = e / np.sum(e, axis=1, keepdims=True)
         return self.__last_softmax
 

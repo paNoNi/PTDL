@@ -2,9 +2,9 @@ from typing import Tuple
 
 import numpy as np
 
-from lab1.tn3.base import Layer
+from lab1.numpy_src.base import Layer
 try:
-    from lab1.tn3.utils.conv_utils import col2im_cython, im2col_cython
+    from lab1.numpy_src.utils.conv_utils import col2im_cython, im2col_cython
 except ImportError:
     print('Ooops...')
 

@@ -1,8 +1,8 @@
 import numpy as np
 
-from lab1.tn3.base import Module, Sequential
-from lab1.tn3.layers import Conv2D, MaxPooling, Flatten, FC, Dropout, BatchNormLayer, BatchNorm2D
-from lab1.tn3.activations import Softmax, Relu
+from lab1.numpy_src.base import Module, Sequential
+from lab1.numpy_src.layers import Conv2D, MaxPooling, Flatten, FC, Dropout, BatchNormLayer, BatchNorm2D
+from lab1.numpy_src.activations import Softmax, Relu
 
 class AlexNet(Module):
     def __init__(self):
@@ -78,14 +78,14 @@ class AlexNet(Module):
 
     def get_third_block(self, subname: str):
         return Sequential(name=f'block_{subname}_third_stage', layers=[
-            Dropout('dropout2', prob=0.5),
+            # Dropout('dropout2', prob=0.5),
             FC(name=f'FC_[{subname}_third_stage', in_channels=9216, out_channels=4096),
             Relu(name=f'relu_{subname}_third_stage'),
         ])
 
     def get_forth_block(self, subname: str):
         return Sequential(name=f'block_{subname}_forth_stage', layers=[
-            Dropout('dropout2', prob=0.5),
+            # Dropout('dropout2', prob=0.5),
             FC(name=f'FC_[{subname}_forth_stage', in_channels=4096, out_channels=4096),
             Relu(name=f'relu_{subname}_forth_stage'),
         ])
@@ -93,6 +93,7 @@ class AlexNet(Module):
     def get_firth_block(self, subname: str):
         return Sequential(name=f'block_{subname}_firth_stage', layers=[
             FC(name=f'FC_[{subname}_firth_stage', in_channels=4096, out_channels=10),
+            BatchNormLayer(name=f'bn_{subname}_firth_stage', dims=10),
             Softmax(name=f'softmax_{subname}_firth_stage')
         ])
 

@@ -24,7 +24,6 @@ class CrossEntropyLoss:
 
         loss /= pred.shape[0]
         grad = self.grad()
-        conv = nn.Conv2d(in_channels=1, out_channels=3, kernel_size=3, stride=1, padding=1)
         return loss, grad
 
     def grad(self):
