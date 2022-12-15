@@ -1,7 +1,6 @@
 import os
 import random
 
-import cv2
 from PIL import Image
 from mat4py import loadmat
 
@@ -14,7 +13,6 @@ class CarDataset:
         self.img_folder = img_folder
         self.img_path = os.path.join(root, img_folder)
         anno = loadmat(os.path.join(root, f'{img_folder}_annos.mat'))
-        print(anno['annotations'].keys())
         self.classes = anno['annotations']['class']
         self.img_names = anno['annotations']['fname']
         self.bbox_x1 = anno['annotations']['bbox_x1']
@@ -41,7 +39,7 @@ class CarDataset:
     def __getitem__(self, item):
         index = self.indexes[item]
         image = Image.open(os.path.join(self.img_path, self.img_names[index])).convert('RGB')
-        # image.crop(box=(self.bbox_x1[index], self.bbox_y1[index], self.bbox_x2[index], self.bbox_y2[index]))
+        image.crop(box=(self.bbox_x1[index], self.bbox_y1[index], self.bbox_x2[index], self.bbox_y2[index]))
 
         if self.transform is not None:
             image = self.transform(image)

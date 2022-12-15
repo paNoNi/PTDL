@@ -1,5 +1,3 @@
-from typing import Optional, Callable
-
 import torch
 from torch.optim import Optimizer
 
@@ -38,15 +36,8 @@ class AdaSmooth(Optimizer):
                     c2 = torch.pow((group['p'][1] - group['p'][0]) * e + (1 - group['p'][1]), 2)
                     state['Egs'] = torch.multiply(c2, torch.pow(grad, 2)) + torch.multiply((1 - c2), state['Egs'])
 
-                    # print('=' * 100)
-                    # print(sum_abs_x.min())
-                    # print(e.max())
-                    # print(c2.max())
-                    # print(((state['Egs'] + group['eps']) < 0).sum())
-                    # print(torch.isnan(torch.sqrt(state['Egs'] + group['eps'])).sum())
                     lregs = group['lr'] / (torch.sqrt(state['Egs'] + group['eps']))
-                    # print(torch.isnan(lregs).sum())
-                    # print('=' * 100)
+
 
                     delta_data = torch.multiply(grad, lregs)
 
